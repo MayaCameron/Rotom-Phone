@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {makePokemon,species,initialState} from '../dist/data.js';
+import {battleStats,battleTypes} from '../dist/gimmicks.js';
+import {setVariant,permanentVariant,permanentSpecies} from '../dist/variants.js';
+import {migrate} from '../dist/migrate.js';
+import {exportSheet,importSheet} from '../dist/transfer.js';
+import {changeSpecies} from '../dist/collection.js';
+test('Bloodmoon uses permanent form data while preserving the individual records',()=>{const p=makePokemon(901),s=species.find(s=>s.id===901);p.pe[1]=20;p.known=['ember'];p.active=['ember'];p.held='oran-berry';p.abilityId='overgrow';p.progress[0]=2;const before=structuredClone(p);setVariant(p,'ursaluna-bloodmoon',s);assert.deepEqual(p,{...before,variantId:'ursaluna-bloodmoon'});assert.equal(battleStats(p,s,30).values[1],4);assert.equal(battleStats(p,s,30).values[3],6);assert.equal(permanentSpecies(p,s).base[0],113);assert.equal(permanentVariant(p,s).artId,10272);setVariant(p,'',s);assert.equal(battleStats(p,s,30).values[1],8);});
+test('Permanent variant persists across transfer and coexists with temporary gimmicks',()=>{const sheet=migrate(initialState()),p=makePokemon(901),s=species.find(s=>s.id===901);setVariant(p,'ursaluna-bloodmoon',s);p.gimmicks={megaId:'',giant:'dynamax',tera:true,teraType:'Fogo',turns:3,megaImages:{},megaCustom:false};sheet.pokemon.push(p);const restored=importSheet(exportSheet(sheet)).pokemon.at(-1);assert.equal(restored.variantId,'ursaluna-bloodmoon');assert.equal(battleStats(restored,s,30).values[0],74);assert.deepEqual(battleTypes(restored,s).defense,['Fogo']);});
+test('Changing species clears incompatible form; unsupported variants are rejected',()=>{const p=makePokemon(901),s=species.find(s=>s.id===901);assert.throws(()=>setVariant(p,'unknown',s));setVariant(p,'ursaluna-bloodmoon',s);changeSpecies(p,6);assert.equal(p.variantId,'');});

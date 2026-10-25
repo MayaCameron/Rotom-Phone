@@ -1,0 +1,453 @@
+[
+  {
+    "name": "Pokedex",
+    "rows": [
+      [
+        "Name",
+        "",
+        "#",
+        "Name",
+        "Type",
+        "Total",
+        "HP",
+        "Attack",
+        "Defense",
+        "Sp. Atk",
+        "Sp. Def",
+        "Speed",
+        "Icon",
+        "Shiny Icon"
+      ],
+      [
+        "Bulbasaur",
+        "",
+        "1",
+        "Bulbasaur",
+        "Grass\nPoison",
+        "318",
+        "45",
+        "49",
+        "49",
+        "65",
+        "65",
+        "45",
+        "https://resource.pokemon-home.com/battledata/img/pokei128/icon0001_f00_s0.png"
+      ],
+      [
+        "Ivysaur",
+        "",
+        "2",
+        "Ivysaur",
+        "Grass\nPoison",
+        "405",
+        "60",
+        "62",
+        "63",
+        "80",
+        "80",
+        "60"
+      ],
+      [
+        "Venusaur",
+        "",
+        "3",
+        "Venusaur",
+        "Grass\nPoison",
+        "525",
+        "80",
+        "82",
+        "83",
+        "100",
+        "100",
+        "80"
+      ],
+      [
+        "Venusaur",
+        "Mega Venusaur",
+        "3",
+        "Venusaur\nMega Venusaur",
+        "Grass\nPoison",
+        "625",
+        "80",
+        "100",
+        "123",
+        "122",
+        "120",
+        "80"
+      ],
+      [
+        "Charmander",
+        "",
+        "4",
+        "Charmander",
+        "Fire",
+        "309",
+        "39",
+        "52",
+        "43",
+        "60",
+        "50",
+        "65"
+      ],
+      [
+        "Charmeleon",
+        "",
+        "5",
+        "Charmeleon",
+        "Fire",
+        "405",
+        "58",
+        "64",
+        "58",
+        "80",
+        "65",
+        "80",
+        "https://resource.pokemon-home.com/battledata/img/pokei128/icon0005_f00_s0.png"
+      ],
+      [
+        "Charizard",
+        "",
+        "6",
+        "Charizard",
+        "Fire\nFlying",
+        "534",
+        "78",
+        "84",
+        "78",
+        "109",
+        "85",
+        "100",
+        "https://resource.pokemon-home.com/battledata/img/pokei128/icon0006_f00_s0.png"
+      ],
+      [
+        "Charizard",
+        "Mega Charizard X",
+        "6",
+        "Charizard\nMega Charizard X",
+        "Fire\nDragon",
+        "634",
+        "78",
+        "130",
+        "111",
+        "130",
+        "85",
+        "100"
+      ],
+      [
+        "Charizard",
+        "Mega Charizard Y",
+        "6",
+        "Charizard\nMega Charizard Y",
+        "Fire\nFlying",
+        "634",
+        "78",
+        "104",
+        "78",
+        "159",
+        "115",
+        "100"
+      ],
+      [
+        "Squirtle",
+        "",
+        "7",
+        "Squirtle",
+        "Water",
+        "314",
+        "44",
+        "48",
+        "65",
+        "50",
+        "64",
+        "43"
+      ],
+      [
+        "Wartortle",
+        "",
+        "8",
+        "Wartortle",
+        "Water",
+        "405",
+        "59",
+        "63",
+        "80",
+        "65",
+        "80",
+        "58",
+        "https://resource.pokemon-home.com/battledata/img/pokei128/icon0008_f00_s0.png"
+      ],
+      [
+        "Blastoise",
+        "",
+        "9",
+        "Blastoise",
+        "Water",
+        "530",
+        "79",
+        "83",
+        "100",
+        "85",
+        "105",
+        "78",
+        "https://resource.pokemon-home.com/battledata/img/pokei128/icon0009_f00_s0.png"
+      ],
+      [
+        "Blastoise",
+        "Mega Blastoise",
+        "9",
+        "Blastoise\nMega Blastoise",
+        "Water",
+        "630",
+        "79",
+        "103",
+        "120",
+        "135",
+        "115",
+        "78"
+      ],
+      [
+        "Caterpie",
+        "",
+        "10",
+        "Caterpie",
+        "Bug",
+        "195",
+        "45",
+        "30",
+        "35",
+        "20",
+        "20",
+        "45"
+      ],
+      [
+        "Metapod",
+        "",
+        "11",
+        "Metapod",
+        "Bug",
+        "205",
+        "50",
+        "20",
+        "55",
+        "25",
+        "25",
+        "30"
+      ],
+      [
+        "Butterfree",
+        "",
+        "12",
+        "Butterfree",
+        "Bug\nFlying",
+        "395",
+        "60",
+        "45",
+        "50",
+        "90",
+        "80",
+        "70"
+      ],
+      [
+        "Weedle",
+        "",
+        "13",
+        "Weedle",
+        "Bug\nPoison",
+        "195",
+        "40",
+        "35",
+        "30",
+        "20",
+        "20",
+        "50"
+      ]
+    ]
+  },
+  {
+    "name": "Movedex",
+    "rows": [
+      [
+        "Name",
+        "Type",
+        "Cat.",
+        "Power",
+        "Acc.",
+        "PP",
+        "Effect",
+        "Prob. (%)"
+      ],
+      [
+        "10,000,000 Volt Thunderbolt",
+        "Electric",
+        "",
+        "195",
+        "—",
+        "1",
+        "Pikachu-exclusive Z-Move. High critical hit ratio.",
+        "—"
+      ],
+      [
+        "Absorb",
+        "Grass",
+        "",
+        "20",
+        "100",
+        "25",
+        "User recovers half the HP inflicted on opponent.",
+        "—"
+      ],
+      [
+        "Accelerock",
+        "Rock",
+        "",
+        "40",
+        "100",
+        "20",
+        "User attacks first.",
+        "—"
+      ],
+      [
+        "Acid",
+        "Poison",
+        "",
+        "40",
+        "100",
+        "30",
+        "May lower opponent's Special Defense.",
+        "10"
+      ],
+      [
+        "Acid Armor",
+        "Poison",
+        "",
+        "—",
+        "—",
+        "20",
+        "Sharply raises user's Defense.",
+        "—"
+      ],
+      [
+        "Acid Downpour",
+        "Poison",
+        "—",
+        "—",
+        "—",
+        "1",
+        "Poison type Z-Move.",
+        "—"
+      ],
+      [
+        "Acid Spray",
+        "Poison",
+        "",
+        "40",
+        "100",
+        "20",
+        "Sharply lowers opponent's Special Defense.",
+        "100"
+      ]
+    ]
+  },
+  {
+    "name": "Skilldex",
+    "rows": [
+      [
+        "Name",
+        "Pokémon",
+        "Description",
+        "Gen.",
+        "Descrição pro RPG"
+      ],
+      [
+        "Adaptability",
+        "17",
+        "Powers up moves of the same type.",
+        "4",
+        "Stab = (2d4+1)"
+      ],
+      [
+        "Aerilate",
+        "2",
+        "Turns Normal-type moves into Flying-type moves.",
+        "6"
+      ],
+      [
+        "Aftermath",
+        "10",
+        "Damages the attacker landing the finishing hit.",
+        "4",
+        "derrotado com golpe de contato: atacante perde 25% vida máxima"
+      ],
+      [
+        "Air Lock",
+        "1",
+        "Eliminates the effects of weather.",
+        "3"
+      ],
+      [
+        "Analytic",
+        "12",
+        "Boosts move power when the Pokémon moves last.",
+        "5"
+      ],
+      [
+        "Anger Point",
+        "12",
+        "Maxes Attack after taking a critical hit.",
+        "4"
+      ],
+      [
+        "Anger Shell",
+        "1",
+        "Lowers Defense/Sp. Def and raises Attack/Sp. Atk/Speed when HP drops below \nhalf.",
+        "9"
+      ]
+    ]
+  },
+  {
+    "name": "Itemdex",
+    "rows": [
+      [
+        "Name",
+        "Category",
+        "Effect",
+        "Descrição pro RPG"
+      ],
+      [
+        "Ability Capsule",
+        "Hold items",
+        "A capsule that allows a Pokémon with two Abilities to switch between these \nAbilities when it is used."
+      ],
+      [
+        "Ability Patch",
+        "General items",
+        "Changes a Pokémon's ability to its Hidden Ability."
+      ],
+      [
+        "Ability Shield",
+        "",
+        "An item to be held by a Pokémon. This cute and rather unique-looking shield \nprotects the holder from having its Ability changed by others."
+      ],
+      [
+        "Ability Urge",
+        "Battle items",
+        "When used, it activates the Ability of an ally Pokémon."
+      ],
+      [
+        "Abomasite",
+        "Hold items",
+        "Enables Abomasnow to Mega Evolve during battle."
+      ],
+      [
+        "Absolite",
+        "Hold items",
+        "Enables Absol to Mega Evolve during battle."
+      ],
+      [
+        "Absorb Bulb",
+        "Hold items",
+        "A consumable bulb. If the holder is hit by a Water-type move, its Sp. Atk \nwill rise."
+      ]
+    ]
+  }
+]

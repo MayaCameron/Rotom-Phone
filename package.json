@@ -1,0 +1,15 @@
+{
+  "name": "rotom-phone-rpg",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "start": "node backend/server.mjs",
+    "test": "node --test backend/tests/*.test.mjs prototipo/tests/*.test.mjs",
+    "migrate:online": "node --env-file-if-exists=backend/.env backend/migrate-online.mjs"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "dependencies": { "pg": "8.23.1" },
+  "devDependencies": { "pg-mem": "3.0.14" }
+}
