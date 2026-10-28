@@ -54,7 +54,7 @@ export function createStore(filename=':memory:',clock=()=>Date.now()){
 
   if(uid!==c.owner_id&&c.kind==='player')run('INSERT INTO revisions VALUES(?,?,?,?,?,?,?,?)',id(),c.id,uid,action,JSON.stringify(before),JSON.stringify(diff(before,stored)),clock(),clock()+8*DAY);
 
-  const displayName=typeof stored.trainer?.name==='string'&&stored.trainer.name.trim()?stored.trainer.name.trim().slice(0,160):c.name;
+  const displayName=typeof stored.sheetName==='string'&&stored.sheetName.trim()?stored.sheetName.trim().slice(0,160):c.name;
 
   run('UPDATE characters SET data_json=?,name=?,version=version+1,updated_at=? WHERE id=?',JSON.stringify(stored),displayName,clock(),c.id);return external(get('SELECT * FROM characters WHERE id=?',c.id));
 

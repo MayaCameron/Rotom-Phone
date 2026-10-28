@@ -36,7 +36,7 @@ export async function createPostgresStore(pool,{clock=()=>Date.now(),adminEmail=
  async function write(uid,c,data,expected,action='edit'){
   check(Number.isInteger(expected)&&c.version===expected,409,'A ficha mudou. Recarregue antes de salvar.');validateData(data);const stored=await assets(data,uid),before=json(c.data_json);if(same(before,stored))return external(c);
   if(uid!==c.owner_id&&c.kind==='player')await run('INSERT INTO revisions VALUES($1,$2,$3,$4,$5,$6,$7,$8)',id(),c.id,uid,action,JSON.stringify(before),JSON.stringify(diff(before,stored)),clock(),clock()+8*DAY);
-  const name=typeof stored.trainer?.name==='string'&&stored.trainer.name.trim()?stored.trainer.name.trim().slice(0,160):c.name;
+  const name=typeof stored.sheetName==='string'&&stored.sheetName.trim()?stored.sheetName.trim().slice(0,160):c.name;
   await run('UPDATE characters SET data_json=$1,name=$2,version=version + 1,updated_at=$3 WHERE id=$4',JSON.stringify(stored),name,clock(),c.id);return external(await one('SELECT * FROM characters WHERE id=$1',c.id));
  }
  function validateCatalog(entry){check(!catalogProblem(entry),400,catalogProblem(entry));check(typeof entry.id==='string'&&/^[a-zA-Z0-9_-]+$/.test(entry.id),400,'Registro inválido.');if(entry.review)for(const key of ['official','translation','rpg'])check((key==='official'?['pending','reviewed']:['pending','draft','reviewed']).includes(entry.review[key]),400,'Estado de revisão inválido.');}
