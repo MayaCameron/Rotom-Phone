@@ -1,3 +1,4 @@
+import {GENDERS} from './sheet-update.js';
 import {migrate} from './migrate.js';
 import {species,moves,items} from './data.js';
 import {cultivationOutcome} from './greenhouse.js';
@@ -14,6 +15,7 @@ export function importSheet(input){
  const image=v=>str(v)&&(!v||/^https:\/\//i.test(v)||/^data:image\/(png|jpeg|webp);base64,/i.test(v));
  if(!obj(s)||s.version!==1||!obj(s.trainer)||!Array.isArray(s.pokemon)||!Array.isArray(s.inventory))fail();
  try{migrate(s);}catch{fail();}
+ if(s.sheetName!==undefined&&(!str(s.sheetName)||s.sheetName.length>160))fail();
  const t=s.trainer;
  if(!['name','player','className','profession','story','goals','bonds'].every(k=>str(t[k]))||!['level','prestige','aura','money','hp'].every(k=>num(t[k]))||t.level<1||t.level>100||!image(t.portrait)||!arr(t.survival,4)||!arr(t.attributes,3)||!Array.isArray(t.skills)||!t.skills.every(a=>obj(a)&&str(a.name)&&num(a.bonus)&&typeof a.mastery==='boolean')||!Array.isArray(t.abilities)||t.abilities.length!==5||!t.abilities.every(ability))fail();
  for(const key of ['notes','customItems','eggs','cultivation','retiredPokemon']){s[key] ||= [];if(!Array.isArray(s[key]))fail();}
@@ -22,6 +24,7 @@ export function importSheet(input){
  const all=[...s.pokemon,...s.retiredPokemon],ids=new Set();
  for(const p of all){
   if(!obj(p)||!str(p.id)||ids.has(p.id)||!species.some(a=>a.id===p.speciesId)||!str(p.nickname)||!str(p.nature)||!num(p.confidence)||!(p.hp===null||num(p.hp))||!image(p.customImage)||!['normal','shiny','custom'].includes(p.appearance)||typeof p.team!=='boolean'||!arr(p.pe,6)||!arr(p.progress,6)||!arr(p.stages,7)||!arr(p.contest,5)||!arr(p.contestProgress,5)||!num(p.talent)||!texts(p.conditions)||!texts(p.known)||!texts(p.active)||![...p.known,...p.active].every(id=>moveIds.has(id))||!str(p.notes)||!str(p.held)||(p.held&&!itemIds.has(p.held)))fail();
+  if(!GENDERS.includes(p.gender)||!obj(p.formImages)||!Object.entries(p.formImages).every(([key,value])=>key.length<=300&&image(value)))fail();
   if(p.abilityQuery!==undefined&&!str(p.abilityQuery))fail();if(p.abilityId!==undefined&&!str(p.abilityId))fail();if(p.contestNotes!==undefined&&!str(p.contestNotes))fail();if(p.retired&&(!obj(p.retired)||!str(p.retired.reason)))fail();ids.add(p.id);
   if(p.variantId!==undefined&&(!str(p.variantId)||(p.variantId&&!variantsFor(species.find(s=>s.id===p.speciesId)).some(v=>v.id===p.variantId))))fail();
   if(p.gimmicks!==undefined){const g=p.gimmicks;if(!obj(g)||!str(g.megaId)||(g.megaId&&!MEGAS.some(m=>m.id===g.megaId))||!['','dynamax','gigantamax'].includes(g.giant)||typeof g.tera!=='boolean'||!TYPES.includes(g.teraType)||!Number.isInteger(g.turns)||g.turns<0||g.turns>3||typeof g.megaCustom!=='boolean'||!obj(g.megaImages)||!Object.entries(g.megaImages).every(([k,v])=>MEGAS.some(m=>m.id===k)&&image(v)))fail();}

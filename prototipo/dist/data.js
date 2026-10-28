@@ -1,6 +1,6 @@
 export const imageRoot='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites';
 export const art=(id,shiny=false)=>`${imageRoot}/pokemon/other/home/${shiny?'shiny/':''}${id}.png`;
-export const itemArt=id=>`${imageRoot}/items/${id}.png`;
+export const itemArt=id=>`${imageRoot}/items/${/^[a-z]+ium-z$/.test(id)?id+'--bag':id}.png`;
 export const species=[
  {id:907,name:'Floragato',types:['Grama'],base:[61,80,63,60,63,83]},
  {id:757,name:'Salandit',types:['Veneno','Fogo'],base:[48,44,40,71,40,77]},

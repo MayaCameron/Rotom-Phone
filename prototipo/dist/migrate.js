@@ -1,5 +1,7 @@
+import {upgradeSheet} from './sheet-update.js';
 // Upgrades existing local sheets without discarding player edits.
 export function migrate(state){
+ upgradeSheet(state);
  state.pokeblocks ||= [];
  if((state.schemaRevision||0)>=2)return state;
  state.customItems ||= []; state.notes ||= []; state.eggs ||= []; state.cultivation ||= [];

@@ -10,7 +10,7 @@ export function stats(p,species,level,nature){
  const pe=totalPE(p), real=species.base.map((b,i)=>b+pe[i]);
  const result=[Math.floor(real[0]/hpDivisor(level)),Math.floor(real[1]/20),Math.floor(real[2]/10),Math.floor(real[3]/20),Math.floor(real[4]/10),Math.floor(real[5]/20)];
  if(nature){if(nature.up!=null)result[nature.up]++;if(nature.down!=null)result[nature.down]--;}
- result[1]=Math.max(0,result[1]);result[3]=Math.max(0,result[3]);
+ result[0]=Math.max(1,result[0]);result[1]=Math.max(0,result[1]);result[3]=Math.max(0,result[3]);
  return {real,values:result,pe,total:real.reduce((a,b)=>a+b,0),rank:rank(real.reduce((a,b)=>a+b,0))};
 }
 export function damage(power){if(!Number.isFinite(power)||power<=0)return '—';return power<=40?'1d4':power<=60?'1d6':power<=70?'1d6 + 1':power<=80?'1d8':power<=90?'2d6':power<=100?'2d8':power<=110?'2d10':power<=120?'2d12':power<=130?'2d10 + 4':power<=140?'3d10':power<=150?'3d12':power<=160?'3d12 + 3':power<=180?'3d12 + 6':'2d20 + 10';}
