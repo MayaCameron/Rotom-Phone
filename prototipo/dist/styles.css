@@ -83,3 +83,43 @@
 @media(max-width:620px){.top-tools .mobile-menu-button{display:inline-flex}.attribute-die{width:52px;height:52px}}
 
 .form-image-gallery{margin-bottom:20px}.form-image-gallery summary{cursor:pointer;padding:12px}.form-image-card{display:grid;justify-items:center;gap:8px;padding:12px;border:1px solid var(--line);border-radius:10px;overflow-wrap:anywhere}.form-image-card img{width:100%;height:110px;object-fit:contain}.form-image-card small{font-size:11px}
+
+
+/* November review: dark surfaces share the same palette at every viewport. */
+.note-editor-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.note-list-entry{position:relative}.note-list-entry .note-entry{padding-bottom:42px}.note-delete{position:absolute;bottom:12px;right:16px;font-size:11px;color:var(--green)}
+.remove-item{display:block;font-size:10px;margin-top:8px;color:var(--muted)}
+.speed-control{margin-top:10px}.speed-ready{border-color:var(--green);box-shadow:inset 3px 0 var(--green)}
+.translated-move-description{font-size:13px;line-height:1.8;color:var(--muted);margin:20px 0;white-space:pre-wrap}.translated-move-description h3{font-size:12px;color:var(--ink);margin-bottom:7px}
+.detail-tabs{overflow-x:auto}.detail-tabs button{flex-shrink:0;white-space:nowrap}
+[data-theme="dark"] .sidebar{background:#17232e;color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .sidebar :is(.brand,.brand-sub,.campaign small,.campaign strong,.nav-label,.profile small,.prototype-pill,.nav-btn,.nav-count){color:var(--ink)}
+[data-theme="dark"] .sidebar :is(.campaign,.profile){border-color:var(--line)}
+[data-theme="dark"] .sidebar .campaign{background:#21313e}
+[data-theme="dark"] .sidebar .nav-btn:hover:not(.active){background:#2a3d4b;color:var(--ink)}
+[data-theme="dark"] .sidebar .nav-btn.active{background:#5AC5BD;color:#123c38}
+[data-theme="dark"] .sidebar .nav-btn.active .nav-count{color:#123c38}
+[data-theme="dark"] .sidebar .brand-mark{background:#EE7329;color:#17232e}
+[data-theme="dark"] :is(.detail-tabs,.detail-header,.dialog-head,.dialog-content,.note-row,.note-entry.selected,.catalog-item,.species-result:hover,.preview-species,.greenhouse-empty,.block-empty,.block-legacy){background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .field :is(input,textarea,select),[data-theme="dark"] .variant-picker select{background:var(--wash);color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .notebook{background:var(--wash)!important;color:var(--ink);caret-color:var(--ink)}
+[data-theme="dark"] :is(.note-entry p,.catalog-excerpt,.reference-description,.held-description,.breadcrumbs,.summary-item span.meta,.empty,.readme-warning,.small-dim,.blender-heading,.override-option,.greenhouse-title span,.trust-caption button,.combat-stage button,.temporary-move-controls button,.variant-picker small){color:var(--muted)}
+[data-theme="dark"] .note-entry.selected{border-color:#5AC5BD}
+[data-theme="dark"] .detail-tabs button{background:transparent;color:var(--muted);border-color:transparent;border-radius:7px 7px 0 0}
+[data-theme="dark"] .detail-tabs button.active{background:#263e48;color:#86ded6;border-bottom-color:#5AC5BD}
+[data-theme="dark"] .segmented button{background:transparent;color:var(--muted)}
+[data-theme="dark"] .segmented button.active{background:#36545d;color:#b6fff4;border-color:#5AC5BD}
+[data-theme="dark"] :is(.stat.modified,.accuracy-control,.trust-box,.block-summary){background:var(--wash);border-color:var(--line)}
+[data-theme="dark"] .speed-ready{border-color:#5AC5BD}
+[data-theme="dark"] .pokemon-art:before,[data-theme="dark"] .pokemon-art:after{opacity:.12}
+[data-theme="dark"] .top-tools button{border-radius:6px;padding:7px}
+[data-theme="dark"] .btn.primary{background:#5AC5BD;color:#123c38}
+[data-theme="dark"] ::placeholder{color:#a4b9c6;opacity:1}
+[data-theme="dark"] input:checked{accent-color:#5AC5BD}
+[data-theme="dark"] #toast{background:#344e60;color:#fff}
+@media(max-width:620px){[data-theme="dark"] .sidebar{background:#17232e;border-top-color:var(--line)}.detail-tabs{gap:12px;padding:0 16px}.detail-tabs button{padding:13px 6px}.speed-control{gap:12px}.speed-control small{line-height:1.5}}
+
+[data-theme="dark"] .combat-stage button{background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .accuracy-control small{color:var(--muted)}
+
+[data-theme="dark"] .reference-description{color:var(--ink)}

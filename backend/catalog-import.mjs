@@ -1,5 +1,6 @@
 import {createHash,randomUUID} from 'node:crypto';
 import {catalogProblem} from './catalog-validation.mjs';
+import {validateTextUpdate,textState,applyTextUpdate,textChanges} from './reviewed-moves.mjs';
 
 // Staging is private to catalog administrators. Publication is atomic and version guarded.
 export function catalogImport({db,requireAdmin,clock,ApiError}){
@@ -15,8 +16,9 @@ export function catalogImport({db,requireAdmin,clock,ApiError}){
     const problem=catalogProblem(row);if(problem)fail(400,problem);
     if(!row.official?.name)fail(400,'O nome original é obrigatório.');
     const old=get('SELECT * FROM catalog_entries WHERE id=?',row.id);
+    const textProblem=validateTextUpdate(row,old?{kind:old.kind,name:JSON.parse(old.official_json).name}:null);if(textProblem)fail(400,textProblem);
     if(old&&old.kind!==row.kind)fail(400,'A categoria de uma identidade não pode mudar.');
-    return {id:row.id,kind:row.kind,sourceKey:row.sourceKey??null,official:row.official,candidates:row.candidates??{},workbook:!!row.workbook,expectedVersion:old?.version??0};
+    return {id:row.id,kind:row.kind,sourceKey:row.sourceKey??null,official:row.official,candidates:row.candidates??{},workbook:!!row.workbook,expectedVersion:old?.version??0,...(row.textUpdate?{textUpdate:row.textUpdate,previousText:textState(old)}:{})};
    });
    const id=randomUUID();db.exec('BEGIN IMMEDIATE');try{
     db.prepare('INSERT INTO catalog_staging VALUES(?,?,?,?,?)').run(id,source,JSON.stringify(prepared),uid,clock());
@@ -27,13 +29,19 @@ export function catalogImport({db,requireAdmin,clock,ApiError}){
   saveBatchIssues(uid,id,issues){read(uid,id);db.prepare('INSERT INTO catalog_batch_issues VALUES(?,?) ON CONFLICT(batch_id) DO UPDATE SET issues_json=excluded.issues_json').run(id,JSON.stringify(issues));},
   previewCatalog(uid,id){const {batch,meta,rows}=read(uid,id);return {id,source:batch.source,createdAt:batch.created_at,pending:JSON.parse(get('SELECT issues_json FROM catalog_batch_issues WHERE batch_id=?',id)?.issues_json||'[]'),appliedAt:meta?.applied_at??null,rows:rows.map(row=>{
    const old=get('SELECT * FROM catalog_entries WHERE id=?',row.id);const before=old?JSON.parse(old.official_json):null;
-   const fields=[...new Set([...Object.keys(before||{}),...Object.keys(row.official)])].filter(key=>fingerprint(before?.[key]??null)!==fingerprint(row.official[key]??null));
+   const fields=row.textUpdate?textChanges(row.previousText,applyTextUpdate(old,row.textUpdate)):[...new Set([...Object.keys(before||{}),...Object.keys(row.official)])].filter(key=>fingerprint(before?.[key]??null)!==fingerprint(row.official[key]??null));
    return {...row,before,changes:fields,status:meta?.applied_at?'published':(old?.version??0)!==row.expectedVersion?'conflict':!old?'new':fields.length?'changed':'unchanged'};
   })};},
   importOfficial(uid,id){const {rows,meta}=read(uid,id);if(meta?.applied_at)fail(409,'Este lote já foi publicado.');
    db.exec('BEGIN IMMEDIATE');try{
     for(const row of rows){const old=get('SELECT * FROM catalog_entries WHERE id=?',row.id);
      if((old?.version??0)!==row.expectedVersion)fail(409,'O catálogo mudou depois da preparação. Gere um novo lote para comparar.');
+     if(row.textUpdate){
+      const next=applyTextUpdate(old,row.textUpdate);
+      db.prepare('UPDATE catalog_entries SET official_json=?,translations_json=?,rpg_json=?,version=version+1,updated_at=? WHERE id=?').run(JSON.stringify(next.official),JSON.stringify(next.translations),JSON.stringify(next.rpg),clock(),row.id);
+      db.prepare("INSERT INTO catalog_review VALUES(?,'reviewed','reviewed','reviewed') ON CONFLICT(entry_id) DO UPDATE SET translation_status='reviewed',rpg_status='reviewed'").run(row.id);
+      continue;
+     }
      const changed=!old||old.official_json!==JSON.stringify(row.official);
      if(!changed&&!row.workbook)continue;
      db.prepare("INSERT INTO catalog_entries VALUES(?,?,?,?,'{}','{}',1,?) ON CONFLICT(id) DO UPDATE SET official_json=excluded.official_json,source_key=excluded.source_key,version=catalog_entries.version+1,updated_at=excluded.updated_at").run(row.id,row.kind,row.sourceKey,JSON.stringify(row.official),clock());

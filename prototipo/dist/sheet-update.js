@@ -17,5 +17,12 @@ export function adjustItemQuantity(sheet,id,amount,mode){
  if(!entry||!Number.isInteger(amount)||amount<0||amount>9999||!['remove','add','set'].includes(mode))throw Error('Informe uma quantidade válida.');
  const next=mode==='set'?amount:entry.qty+(mode==='remove'?-amount:amount),equipped=sheet.pokemon.filter(p=>p.held===id).length;
  if(next<equipped||next<0)throw Error('Quantidade insuficiente: preserve as unidades equipadas.');
- entry.qty=Math.min(9999,next);return entry.qty;
+ entry.qty=Math.min(9999,next);if(entry.qty===0)sheet.inventory=sheet.inventory.filter(i=>i.id!==id);return entry.qty;
 }
+
+export function removeInventoryItem(sheet,id){
+ if(sheet.pokemon.some(p=>p.held===id))throw Error('Remova o held item dos Pokémon antes de excluir este item.');
+ sheet.inventory=sheet.inventory.filter(i=>i.id!==id);
+}
+export function deleteNote(sheet,id){sheet.notes=sheet.notes.filter(n=>n.id!==id);}
+export function speedActions(stages=[]){return Number(stages[4])>=6?2:1;}

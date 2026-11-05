@@ -1,3 +1,4 @@
+import {prepareReviewedMoves} from './reviewed-moves.mjs';
 import http from 'node:http';
 
 import {mkdirSync,readFileSync} from 'node:fs';
@@ -103,6 +104,14 @@ const server=http.createServer(async(req,res)=>{
     else {const staged=await store.stageCatalog(uid,String(body.name).slice(0,160),prepared.records);await store.saveBatchIssues(uid,staged.id,prepared.pending);result={...staged,pending:prepared.pending,ignored:prepared.ignored};}
    }
 
+   else if(route==='POST /catalog/reviewed-moves-preview'){
+    if(!u.catalog_admin)throw new ApiError(403,'Somente o administrador do catálogo.');
+    const snapshot=JSON.parse(readFileSync(new URL('./imports/reviewed-moves.json',import.meta.url),'utf8'));
+    const prepared=prepareReviewedMoves(snapshot,await store.catalog(uid));
+    if(!prepared.records.length)throw new ApiError(400,'Nenhum movimento corresponde ao catálogo. Importe os dados oficiais primeiro.');
+    result=await store.stageCatalog(uid,'Movedex revisada · '+snapshot.reviewedAt,prepared.records);
+    await store.saveBatchIssues(uid,result.id,prepared.pending);
+   }
    else if(route==='POST /catalog/sample-preview'){if(!u.catalog_admin)throw new ApiError(403,'Somente o administrador do catálogo.');const sample=JSON.parse(readFileSync(new URL('./fixtures/central-sample.json',import.meta.url),'utf8'));const prepared=prepareSheetCatalog(sample);result={...await store.stageCatalog(uid,'Amostra do Banco Central',prepared.records),pending:prepared.pending};}
 
    else if(route==='POST /catalog/staging')result=await store.stageCatalog(uid,body.source,body.rows);
